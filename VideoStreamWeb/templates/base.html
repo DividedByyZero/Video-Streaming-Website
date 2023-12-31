@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title_block %}Video Streaming Website{%endblock%}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS and Popper.js (if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0; /* Reset default margin */
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #343a40; /* Adjust the background color as needed */
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="bg-dark text-white text-center py-4">
+        <h1>Video Streaming Website</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'VideoSystem_APP:SearchVideo' %}">Search Videos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'VideoSystem_APP:VideoList' %}">Videos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'VideoSystem_APP:UploadVideo' %}">Upload Video</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href={% url 'LogoutUser' %}>Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'ProfileUser' %}">Profile</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'LoginUser' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'SignUpUser' %}">Sign Up</a>
+                        </li>
+                    {%endif%}
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+        {% block body_block%}
+        
+        {%endblock%}
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Nabeel Ahsan. All rights reserved.</p>
+    </footer>
+</body>
+</html>

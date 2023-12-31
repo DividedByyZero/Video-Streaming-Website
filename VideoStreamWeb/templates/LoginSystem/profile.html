@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+    {% if user.is_authenticated %}
+        {{ user.username }}'s Profile
+    {% else %}
+        Video Streaming Website
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    {% if user.is_authenticated %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Profile</h5>
+                <p class="card-text">Username: {{ user.username }}</p>
+                {% if user.user_profile %}
+                    <img src="/media/{{ user.user_profile.profile_pic}}" alt="{{ user.username }}'s Profile Picture" class="rounded-circle" width="100px">
+                {% else %}
+                <img src="/media/profile_pics/default.jpg" alt="{{ user.username }}'s Profile Picture" class="rounded-circle" width="100px">
+                {% endif %}
+            </div>
+            {% if user.user_profile %}
+                <a href="{% url 'UpdateUser' %}"><button type="button" class="btn btn-dark">Update</button></a>
+            {% else %}
+                <a href="{% url 'AddProfile' %}"><button type="button" class="btn btn-dark">Add Profile Picture</button></a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

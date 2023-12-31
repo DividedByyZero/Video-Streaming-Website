@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title_block%} Sign Up {% endblock %}
+{% block body_block%}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h2 class="mb-0">Sign Up</h2>
+            </div>
+            {%if samename %}
+            <div class="alert alert-danger" role="alert">
+                Use another user name!<a href={% url 'SignUpUser' %}> Sign Up </a>
+              </div>
+            {%else%}
+                {%if Registered %}
+                <div class="alert alert-success" role="alert">
+                    Successfully Logged in !
+                </div>
+                {%else%}
+                <div class="card-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit" class="btn btn-success">Sign Up</button>
+                    </form>
+                </div>
+                {% endif %}
+            {%endif%}
+        </div>
+    </div>
+</div>
+{% endblock %}
